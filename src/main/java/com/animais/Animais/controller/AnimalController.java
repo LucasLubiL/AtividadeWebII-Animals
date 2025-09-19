@@ -16,23 +16,23 @@ import com.animais.Animais.service.AnimalService;
 @Controller
 public class AnimalController {
 
-    //@Autowired
-    //private AnimalService animalService;
+    @Autowired
+    private AnimalService animalService;
 
     @GetMapping("/animal")
     public String index(Model model) {
-        //model.addAttribute("animalsList", animalService.getAllAnimals());
+        model.addAttribute("animalsList", animalService.getAllAnimals());
         return "animal/index";
     }
 
-    /*@GetMapping("/animal/create")
+    @GetMapping("/animal/create")
     public String create(Model model) {
         model.addAttribute("animal", new Animal());
         return "animal/create";
     }
 
     @PostMapping("/animal/save")
-    public String save(@ModelAttribute @Valid Animal animal, BindingResult result, Model model) {
+    public String save(@ModelAttribute Animal animal, BindingResult result, Model model) {
 
         System.out.println(animal);
         if (result.hasErrors()) {
@@ -49,12 +49,12 @@ public class AnimalController {
         this.animalService.deleteAnimalById(id);
         return "redirect:/animal";
     }
-
+    
     @GetMapping("/animal/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
         Animal animal = animalService.getAnimalById(id);
         model.addAttribute("animal", animal);
         return "animal/edit";
     }
-*/
+    
 }

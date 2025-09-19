@@ -3,11 +3,11 @@ import java.util.List;
 
 import com.animais.Animais.model.Animal;
 
-public class AnimalService {
+public interface AnimalService {
     
-    /*(List <Animal> getAllAnimals();
+    List <Animal> getAllAnimals();
     void saveAnimal(Animal animal);
     Animal getAnimalById(long id);
     void deleteAnimalById(long id);
-*/
+
 }

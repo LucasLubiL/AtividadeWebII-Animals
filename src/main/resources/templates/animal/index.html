@@ -1,1 +1,52 @@
-<h1>Teste Animais</h1>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="ISO-8859-1" />
+    <title>Listagem de Animais</title>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <a th:href="@{/animal/create}">Cadastrar Produto</a>
+      <h1>Listagem de Animais</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Espécie</th>
+            <th scope="col">Habitat</th>
+            <th scope="col">Idade</th>
+            <th scope="col">Peso (kg)</th>
+            <th scope="col">Em Extinção</th>
+            <th scope="col">Data de Chegada</th>
+            <th scope="col">Excluir</th>
+            <th scope="col">Editar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="animal : ${animalsList}">
+            <td th:text="${animal.nome}"></td>
+            <td th:text="${animal.especie}"></td>
+            <td th:text="${animal.habitat}"></td>
+            <td th:text="${animal.idade}"></td>
+            <td th:text="${animal.peso}"></td>
+            <td th:text="${animal.emExtincao} ? 'Sim' : 'Não'"></td>
+            <td th:text="${animal.dataChegada}"></td>
+            <td>
+                <a th:href="@{/animal/delete/{id}(id=${animal.id})}">Deletar</a>
+            </td>
+            <td>
+                 <a th:href="@{/animal/edit/{id}(id=${animal.id})}">Editar</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
