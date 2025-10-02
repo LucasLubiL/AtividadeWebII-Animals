@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.animais.Animais.model.Animal;
 import com.animais.Animais.service.AnimalService;
-//import jakarta.validation.Valid;
+import jakarta.validation.Valid;
 
 @Controller
 public class AnimalController {
@@ -32,7 +32,7 @@ public class AnimalController {
     }
 
     @PostMapping("/animal/save")
-    public String save(@ModelAttribute Animal animal, BindingResult result, Model model) {
+    public String save(@ModelAttribute @Valid Animal animal, BindingResult result, Model model) {
 
         System.out.println(animal);
         if (result.hasErrors()) {
