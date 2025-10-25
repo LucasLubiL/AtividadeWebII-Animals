@@ -1,19 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="ISO-8859-1" />
-    <title>Listagem de Animais</title>
-
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-  </head>
+  <th:block th:replace="~{/../fragments/head :: head('Cadastrar Produto')}"></th:block>
   <body>
-    <div class="container">
-      <a th:href="@{/animal/create}">Cadastrar Produto</a>
+    <th:block th:replace="~{/../fragments/head :: header}"></th:block>
+    <div class="container" style="margin-top: 100px;">
       <h1>Listagem de Animais</h1>
       <table class="table table-striped">
         <thead>
@@ -25,8 +15,8 @@
             <th scope="col">Peso (kg)</th>
             <th scope="col">Em Extinção</th>
             <th scope="col">Data de Chegada</th>
-            <th scope="col">Excluir</th>
-            <th scope="col">Editar</th>
+            <th sec:authorize="hasAuthority('Admin')" scope="col">Excluir</th>
+            <th sec:authorize="hasAuthority('Admin')" scope="col">Editar</th>
           </tr>
         </thead>
         <tbody>
@@ -38,15 +28,21 @@
             <td th:text="${animal.peso}"></td>
             <td th:text="${animal.emExtincao} ? 'Sim' : 'Não'"></td>
             <td th:text="${animal.dataChegada}"></td>
-            <td>
-                <a th:href="@{/animal/delete/{id}(id=${animal.id})}">Deletar</a>
+            <td sec:authorize="hasAuthority('Admin')">
+                <a type="button" class="btn btn-danger" th:href="@{/animal/delete/{id}(id=${animal.id})}">Deletar</a>
             </td>
-            <td>
-                 <a th:href="@{/animal/edit/{id}(id=${animal.id})}">Editar</a>
+            <td sec:authorize="hasAuthority('Admin')">
+                 <a type="button" class="btn btn-warning" th:href="@{/animal/edit/{id}(id=${animal.id})}">Editar</a>
             </td>
           </tr>
         </tbody>
       </table>
+      <div class="row">
+        <a th:href="@{/animal/create}">
+          <button sec:authorize="hasAuthority('Admin')" class="btn btn-primary">Cadastrar Produto</button>
+        </a>
+      </div>
     </div>
+    <th:block th:replace="~{/../fragments/footer :: footer}"></th:block>
   </body>
 </html>

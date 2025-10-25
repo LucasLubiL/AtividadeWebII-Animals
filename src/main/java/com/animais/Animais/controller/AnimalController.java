@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.animais.Animais.model.Animal;
 import com.animais.Animais.service.AnimalService;
-//import jakarta.validation.Valid;
+import jakarta.validation.Valid;
 
 @Controller
 public class AnimalController {
@@ -28,16 +28,16 @@ public class AnimalController {
     @GetMapping("/animal/create")
     public String create(Model model) {
         model.addAttribute("animal", new Animal());
-        return "animal/create";
+        return "animal/form";
     }
 
     @PostMapping("/animal/save")
-    public String save(@ModelAttribute Animal animal, BindingResult result, Model model) {
+    public String save(@ModelAttribute @Valid Animal animal, BindingResult result, Model model) {
 
         System.out.println(animal);
         if (result.hasErrors()) {
             model.addAttribute("animal", animal);
-            return "animal/create";
+            return "animal/form";
         }
 
         animalService.saveAnimal(animal);
@@ -54,7 +54,7 @@ public class AnimalController {
     public String edit(@PathVariable Long id, Model model) {
         Animal animal = animalService.getAnimalById(id);
         model.addAttribute("animal", animal);
-        return "animal/edit";
+        return "animal/form";
     }
     
 }

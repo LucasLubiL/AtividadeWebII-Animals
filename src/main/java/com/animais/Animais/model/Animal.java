@@ -6,6 +6,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.math.BigDecimal;
 import java.sql.Date;
 
@@ -16,23 +22,36 @@ public class Animal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Size(min = 1, max = 100, message= "Nome deve conter pelo menos 1 caracteres")
+    @NotBlank(message= "Nome é um campo obrigatório")
+    @NotNull
     @Column(nullable = false, length = 100)
     private String nome;
 
-    @Column(nullable = false, length = 100)
+    @Size(min = 3, max = 50, message= "Espécie deve conter pelo menos 3 caracteres")
+    @NotBlank(message= "Espécie é um campo obrigatório")
+    @NotNull
+    @Column(nullable = false, length = 50)
     private String especie;
 
+    @Size(min = 3, max = 50, message= "Habitat deve conter pelo menos 3 caracteres")
+    @NotBlank(message= "Habitat é um campo obrigatório")
+    @NotNull
     @Column(length = 50)
     private String habitat;
 
+    @NotNull(message = "Idade é um campo obrigatório")
     private Integer idade;
 
-    @Column(precision = 6, scale = 2)
-    private BigDecimal  peso;
+    @NotNull(message = "Peso é um campo obrigatório")
+    @Column(precision = 6)
+    private double  peso;
 
+    @NotNull(message = "Em Extinção é um campo obrigatório")
     @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
     private boolean emExtincao;
 
+    @NotNull(message = "Data de Chegada é um campo obrigatório")
     private Date dataChegada;
 
     public Long getId() {
@@ -75,11 +94,11 @@ public class Animal {
         this.idade = idade;
     }
 
-    public BigDecimal getPeso() {
+    public double getPeso() {
         return peso;
     }
 
-    public void setPeso(BigDecimal peso) {
+    public void setPeso(double peso) {
         this.peso = peso;
     }
 
